@@ -1,0 +1,16 @@
+{
+    "name": "Pandora Presence",
+    "description": "",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "host_permissions": [
+        "http://localhost:8080/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["https://www.pandora.com/*"],
+            "css": ["styles.css"],
+            "js": ["script.js"]
+        }
+    ]
+}
