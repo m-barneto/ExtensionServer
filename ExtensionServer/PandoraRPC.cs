@@ -49,7 +49,7 @@ namespace ExtensionServer {
             heartbeat = DateTime.Now.Ticks;
             RichPresence rpc = new() {
                 Details = req.QueryString["details"],
-                State = req.QueryString["artist"] + " - " + req.QueryString["album"],
+                State = (req.QueryString["artist"] + " - " + req.QueryString["album"]).Length > 128 ? (req.QueryString["artist"] + " - " + req.QueryString["album"]).Substring(0, 128) : (req.QueryString["artist"] + " - " + req.QueryString["album"]),
                 Assets = new Assets() {
                     LargeImageKey = req.QueryString["largeImageKey"],
                     LargeImageText = req.QueryString["largeImageText"]

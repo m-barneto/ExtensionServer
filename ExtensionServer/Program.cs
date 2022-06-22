@@ -2,8 +2,7 @@
 using ExtensionServer;
 
 PandoraRPC pandoraRPC = new PandoraRPC();
-YoutubeClipper clipper = new YoutubeClipper();
-clipper.test();
+PandoraBot pandoraBot = new PandoraBot();
 HttpListener httpListener = new HttpListener();
 httpListener.Prefixes.Add("http://localhost:8080/");
 httpListener.Start();
@@ -31,8 +30,8 @@ async Task HandleIncomingConnections() {
                     case "pandorarpc":
                         pandoraRPC.HandleRequest(ctx);
                         break;
-                    case "ytclipper":
-                        clipper.HandleRequest(ctx);
+                    case "pandorabot":
+                        pandoraBot.HandleRequest(ctx);
                         break;
                 }
             }
