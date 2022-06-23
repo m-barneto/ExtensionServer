@@ -1,5 +1,7 @@
 setInterval(update, 1000);
 
+let previousSong = "";
+
 String.prototype.format = String.prototype.f = function () {
   var s = this,
     i = arguments.length;
@@ -9,6 +11,18 @@ String.prototype.format = String.prototype.f = function () {
   }
   return s;
 };
+
+function songChanged(songName, songTime) {
+  previousSong = songName;
+  let audioUrl = document.getElementById("mediaelement_0").getAttribute("src");
+  var data = "http://localhost:8080/update?dest=pandorabot&url={0}&time={1}".f(
+    encodeURIComponent(audioUrl),
+    songTime
+  );
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", data, true);
+  xhr.send();
+}
 
 function update() {
   try {
@@ -35,6 +49,10 @@ function update() {
     let mins = parseInt(tTimeString[0]) - parseInt(cTimeString[0]);
     let secs = parseInt(tTimeString[1]) - parseInt(cTimeString[1]);
     let epochDiff = (mins * 60) + secs;
+
+    if (previousSong.length == 0 || previousSong != songName) {
+      songChanged(songName, epochDiff);
+    }
 
     //let albumImage = document.getElementsByClassName("nowPlayingTopInfo__artContainer")[0].children[0].children[0].children[0].getAttribute("src");
 
